@@ -29,4 +29,8 @@ export class UsersService extends AbstractCrudService<User> {
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     return super.update(id, updateUserDto, ['email', 'password', 'createdAt']);
   }
+
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userModel.findOne({ email }).exec();
+  }
 }
