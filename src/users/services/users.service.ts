@@ -23,6 +23,10 @@ export class UsersService extends AbstractCrudService<User> {
       updatedAt: Date.now(),
     });
 
-    return createdUser.save();
+    return super.create(createdUser);
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    return super.update(id, updateUserDto, ['email', 'password', 'createdAt']);
   }
 }

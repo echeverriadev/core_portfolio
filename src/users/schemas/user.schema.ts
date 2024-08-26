@@ -13,6 +13,9 @@ export class User extends Document {
   name: string;
 
   @Prop({ required: true })
+  lastName: string;
+
+  @Prop({ required: true })
   phone: string;
 
   @Prop({ default: Date.now })

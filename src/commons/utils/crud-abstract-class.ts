@@ -1,5 +1,5 @@
 import { Model, Document } from 'mongoose';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 export abstract class AbstractCrudService<T extends Document> {
   constructor(protected readonly model: Model<T>) {}
@@ -22,7 +22,8 @@ export abstract class AbstractCrudService<T extends Document> {
     return document;
   }
 
-  async update(id: string, updateDto: any): Promise<T> {
+  async update(id: string, updateDto: any, immutableFields: string[] = []): Promise<T> {
+    this.validateImmutableFields(updateDto, immutableFields);
     updateDto.updatedAt = new Date();
     const updatedDocument = await this.model.findByIdAndUpdate(id, updateDto, { new: true }).exec();
     if (!updatedDocument) {
@@ -37,5 +38,13 @@ export abstract class AbstractCrudService<T extends Document> {
       throw new NotFoundException(`Document with ID ${id} not found`);
     }
     return deletedDocument;
+  }
+
+  protected validateImmutableFields(dto: any, immutableFields: string[]) {
+    for (const field of immutableFields) {
+      if (dto.hasOwnProperty(field)) {
+        throw new BadRequestException(`${field} field cannot be modified.`);
+      }
+    }
   }
 }
