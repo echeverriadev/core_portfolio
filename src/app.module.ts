@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { default as config } from '../configs/config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { default as config } from '../configs/config';
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, UsersModule],
       useFactory: async (configService: ConfigService) => {
         const dbConfig = configService.get('db');
         const userString = dbConfig.user && dbConfig.pass ? `${dbConfig.user}:${dbConfig.pass}@` : '';
@@ -22,6 +23,7 @@ import { default as config } from '../configs/config';
       },
       inject: [ConfigService],
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
