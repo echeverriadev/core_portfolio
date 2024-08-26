@@ -5,7 +5,7 @@ export abstract class AbstractCrudService<T extends Document> {
   constructor(protected readonly model: Model<T>) {}
 
   async create(createDto: any): Promise<T> {
-    createDto.updatedAt = new Date();
+    createDto.updatedAt = Date.now();
     const createdDocument = new this.model(createDto);
     return createdDocument.save();
   }

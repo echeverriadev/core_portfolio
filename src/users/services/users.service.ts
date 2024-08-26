@@ -20,7 +20,6 @@ export class UsersService extends AbstractCrudService<User> {
     const createdUser = new this.userModel({
       ...createUserDto,
       password: hashedPassword,
-      updatedAt: Date.now(),
     });
 
     return super.create(createdUser);

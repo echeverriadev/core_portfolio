@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Role } from 'src/roles/schemas/role.schema';
 
 @Schema()
 export class User extends Document {
@@ -17,6 +18,9 @@ export class User extends Document {
 
   @Prop({ required: true })
   phone: string;
+
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Role' }], required: true })
+  roles: Role[];
 
   @Prop({ default: Date.now })
   createdAt: Date;
