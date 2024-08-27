@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { default as config } from '../configs/config';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -12,18 +16,21 @@ import { default as config } from '../configs/config';
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule, AuthModule, RolesModule, UsersModule],
       useFactory: async (configService: ConfigService) => {
-        const dbConfig = configService.get('db');
-        const userString = dbConfig.user && dbConfig.pass ? `${dbConfig.user}:${dbConfig.pass}@` : '';
-        const authSource = dbConfig.authSource ? `?authSource=${dbConfig.authSource}&w=1` : '';
-        const uri = `mongodb://${userString}${dbConfig.host}:${dbConfig.port || '27017'}/${dbConfig.database}${authSource}`;
-        return { uri };
+        const uri = configService.get<string>('MONGO_URI');
+        return {
+          uri,
+        };
       },
       inject: [ConfigService],
     }),
+    UsersModule,
+    AuthModule,
+    RolesModule,
+    PermissionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

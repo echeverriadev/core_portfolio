@@ -26,38 +26,31 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
-
-```bash
-$ yarn install
+Copy enviroments examples in your locals env
+```
+$ cp .env .env.example
 ```
 
-## Compile and run the project
+## To run with Docker
 
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+### Build project
+```
+$ docker compose build
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+### Launch project -d is optional so you dont loose the terminal shell
+```
+$ docker compose up -d
 ```
 
+### Execute seeds
+start a terminal and execute yarn run seeds inside of it
+
+```
+$ docker compose exec app sh
+$ # yarn run seeds
+$ # exit && yarn install
+```
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
@@ -83,3 +76,15 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+## TODO 📄
+[] Falta el seed del super user
+
+[] Falta agregar los guards en los endpoints para ver los permisos y el token de inicio de sesion
+
+[] Login con google y apple
+
+[] DTOS para roles y permisos
+
+[] Pruebas unitarias
