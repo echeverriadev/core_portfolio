@@ -7,6 +7,9 @@ export class Permission extends Document {
   @Prop({ required: true, unique: true })
   name: string;
 
+  @Prop({ required: true})
+  description: string;
+
   @Prop({ default: Date.now })
   createdAt: Date;
 

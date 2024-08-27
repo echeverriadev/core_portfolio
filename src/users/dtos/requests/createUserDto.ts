@@ -24,7 +24,7 @@ export class CreateUserDto {
   @IsArray()
   @IsString({ each: true })
   @IsNotEmpty()
-  roleIds: string[];
+  roles: string[];
 
   @IsOptional()
   createdAt?: Date;

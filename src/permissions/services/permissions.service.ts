@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AbstractCrudService } from '../../commons/utils/crud-abstract-class';
 import { Permission } from '../schemas/permission.schema';
+import { UpdatePermissionDto } from '../dtos/requests/updatePermissionDto';
 
 @Injectable()
 export class PermissionsService extends AbstractCrudService<Permission> {
@@ -12,7 +13,7 @@ export class PermissionsService extends AbstractCrudService<Permission> {
         super(permissionModel);
     }
 
-    async update(id: string, updateRoleDto: any): Promise<Permission> {
+    async update(id: string, updateRoleDto: UpdatePermissionDto): Promise<Permission> {
         return super.update(id, updateRoleDto, ['createdAt']);
     }
 }

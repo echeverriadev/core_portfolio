@@ -2,13 +2,15 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { PermissionsService } from '../services/permissions.service';
 import { Permission } from '../schemas/permission.schema';
 import { UUID } from 'crypto';
+import { CreatePermissionDto } from '../dtos/requests/createPermissionDto';
+import { UpdatePermissionDto } from '../dtos/requests/updatePermissionDto';
 
 @Controller('permissions')
 export class PermissionsController {
     constructor(private readonly rolesService: PermissionsService) { }
 
     @Post()
-    create(@Body() createRoleDto: any): Promise<Permission> {
+    create(@Body() createRoleDto: CreatePermissionDto): Promise<Permission> {
         return this.rolesService.create(createRoleDto);
     }
 
@@ -23,7 +25,7 @@ export class PermissionsController {
     }
 
     @Put(':id')
-    update(@Param('id') id: UUID, @Body() updateRoleDto: any): Promise<Permission> {
+    update(@Param('id') id: UUID, @Body() updateRoleDto: UpdatePermissionDto): Promise<Permission> {
         return this.rolesService.update(id, updateRoleDto);
     }
 

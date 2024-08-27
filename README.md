@@ -49,8 +49,7 @@ start a terminal and execute yarn run seeds inside of it
 ```
 $ docker compose exec app sh
 $ # yarn run seeds
-$ # exit
-$ yarn install
+$ # exit && yarn install
 ```
 ## Resources
 
@@ -77,3 +76,15 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+## TODO 📄
+[] Falta el seed del super user
+
+[] Falta agregar los guards en los endpoints para ver los permisos y el token de inicio de sesion
+
+[] Login con google y apple
+
+[] DTOS para roles y permisos
+
+[] Pruebas unitarias
