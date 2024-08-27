@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AbstractCrudService } from 'src/commons/utils/crud-abstract-class';
-import { Role } from '../schemas/role.schema';
 import { Model } from 'mongoose';
+import { AbstractCrudService } from '../../commons/utils/crud-abstract-class';
 import { UpdateRoleDto } from '../dtos/requests/updateRoleDto';
+import { Role } from '../schemas/role.schema';
 
 @Injectable()
 export class RolesService extends AbstractCrudService<Role> {
-    constructor(@InjectModel(Role.name) private readonly roleModel: Model<Role>) {
+    constructor(
+        @InjectModel(Role.name) roleModel: Model<Role>,
+    ) {
         super(roleModel);
     }
 

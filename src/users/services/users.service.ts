@@ -2,15 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
-import { AbstractCrudService } from 'src/commons/utils/crud-abstract-class';
+import { AbstractCrudService } from '../../commons/utils/crud-abstract-class';
 import { CreateUserDto } from '../dtos/requests/createUserDto';
 import { UpdateUserDto } from '../dtos/requests/updateUserDto';
 import { User } from '../schemas/user.schema';
 
 @Injectable()
 export class UsersService extends AbstractCrudService<User> {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {
-    super(userModel);
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {
+      super(userModel);
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {

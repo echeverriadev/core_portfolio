@@ -26,38 +26,32 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+Copy enviroments examples in your locals env
+```
+$ cp .env .env.example
+```
 
-```bash
+## To run with Docker
+
+### Build project
+```
+$ docker compose build
+```
+
+### Launch project -d is optional so you dont loose the terminal shell
+```
+$ docker compose up -d
+```
+
+### Execute seeds
+start a terminal and execute yarn run seeds inside of it
+
+```
+$ docker compose exec app sh
+$ # yarn run seeds
+$ # exit
 $ yarn install
 ```
-
-## Compile and run the project
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:

@@ -7,6 +7,7 @@ import { PermissionsService } from './services/permissions.service';
 @Module({
   imports: [MongooseModule.forFeature([{ name: Permission.name, schema: PermissionSchema }])],
   providers: [PermissionsService],
-  controllers: [PermissionsController]
+  controllers: [PermissionsController],
+  exports: [PermissionsService],
 })
 export class PermissionsModule {}

@@ -18,11 +18,10 @@ import { PermissionsModule } from './permissions/permissions.module';
     MongooseModule.forRootAsync({
       imports: [ConfigModule, AuthModule, RolesModule, UsersModule],
       useFactory: async (configService: ConfigService) => {
-        const dbConfig = configService.get('db');
-        const userString = dbConfig.user && dbConfig.pass ? `${dbConfig.user}:${dbConfig.pass}@` : '';
-        const authSource = dbConfig.authSource ? `?authSource=${dbConfig.authSource}&w=1` : '';
-        const uri = `mongodb://${userString}${dbConfig.host}:${dbConfig.port || '27017'}/${dbConfig.database}${authSource}`;
-        return { uri };
+        const uri = configService.get<string>('MONGO_URI');
+        return {
+          uri,
+        };
       },
       inject: [ConfigService],
     }),
@@ -34,4 +33,4 @@ import { PermissionsModule } from './permissions/permissions.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

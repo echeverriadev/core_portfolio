@@ -1,8 +1,8 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
 RUN yarn install
 
@@ -12,4 +12,4 @@ RUN yarn run build
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "start:dev"]
+CMD ["yarn", "start"]
