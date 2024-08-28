@@ -96,7 +96,7 @@ describe('UsersController', () => {
     });
   });
 
-  describe('GET ti find one user by id', () => {
+  describe('GET to find one user by id', () => {
     it('should return a user with 200 status if found', async () => {
       const mockResponse = {
         status: jest.fn().mockReturnThis(),
