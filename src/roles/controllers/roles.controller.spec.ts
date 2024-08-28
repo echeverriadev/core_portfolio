@@ -100,19 +100,6 @@ describe('RolesController', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalledWith(mockRole);
     });
-
-    it('should return 404 status if role not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      await controller.findOne('non-existing-id', mockResponse);
-
-      expect(service.findOne).toHaveBeenCalledWith('non-existing-id');
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Role not found' });
-    });
   });
 
   describe('PUT to update one role by id', () => {
@@ -132,23 +119,6 @@ describe('RolesController', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalledWith({ ...mockRole, ...updateRoleDto });
     });
-
-    it('should return 404 status if role not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      const updateRoleDto: UpdateRoleDto = {
-        description: 'Updated description',
-      };
-
-      await controller.update('non-existing-id', updateRoleDto, mockResponse);
-
-      expect(service.update).toHaveBeenCalledWith('non-existing-id', updateRoleDto);
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Role not found' });
-    });
   });
 
   describe('DELETE to delete one role by id', () => {
@@ -163,19 +133,6 @@ describe('RolesController', () => {
       expect(service.delete).toHaveBeenCalledWith('existing-id');
       expect(mockResponse.status).toHaveBeenCalledWith(204);
       expect(mockResponse.send).toHaveBeenCalled();
-    });
-
-    it('should return 404 status if role not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      await controller.delete('non-existing-id', mockResponse);
-
-      expect(service.delete).toHaveBeenCalledWith('non-existing-id');
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'Role not found' });
     });
   });
 });

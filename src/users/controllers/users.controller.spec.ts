@@ -109,19 +109,6 @@ describe('UsersController', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalledWith(mockUser);
     });
-
-    it('should return 404 status if user not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      await controller.findOne('66cea941ff05297429eac0b6', mockResponse);
-
-      expect(service.findOne).toHaveBeenCalledWith('66cea941ff05297429eac0b6');
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'User not found' });
-    });
   });
 
   describe('PUT to update one user by id', () => {
@@ -141,23 +128,6 @@ describe('UsersController', () => {
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.json).toHaveBeenCalledWith({ ...mockUser, ...updateUserDto });
     });
-
-    it('should return 404 status if user not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      const updateUserDto: UpdateUserDto = {
-        name: 'Updated Name',
-      };
-
-      await controller.update('66cea941ff05297429eac0b6', updateUserDto, mockResponse);
-
-      expect(service.update).toHaveBeenCalledWith('66cea941ff05297429eac0b6', updateUserDto);
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'User not found' });
-    });
   });
 
   describe('DELETE to delete one user by id', () => {
@@ -172,19 +142,6 @@ describe('UsersController', () => {
       expect(service.delete).toHaveBeenCalledWith('66cea941ff05297429eac0b5');
       expect(mockResponse.status).toHaveBeenCalledWith(204);
       expect(mockResponse.send).toHaveBeenCalled();
-    });
-
-    it('should return 404 status if user not found', async () => {
-      const mockResponse = {
-        status: jest.fn().mockReturnThis(),
-        json: jest.fn().mockReturnThis(),
-      } as unknown as Response;
-
-      await controller.delete('66cea941ff05297429eac0b6', mockResponse);
-
-      expect(service.delete).toHaveBeenCalledWith('66cea941ff05297429eac0b6');
-      expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.json).toHaveBeenCalledWith({ message: 'User not found' });
     });
   });
 });

@@ -1,10 +1,8 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, Res, HttpStatus } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { CreateUserDto } from '../dtos/requests/createUserDto';
-import { User } from '../schemas/user.schema';
-import { UpdateUserDto } from '../dtos/requests/updateUserDto';
-import { UUID } from 'crypto';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { CreateUserDto } from '../dtos/requests/createUserDto';
+import { UpdateUserDto } from '../dtos/requests/updateUserDto';
+import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
@@ -28,11 +26,7 @@ export class UsersController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const user = await this.usersService.findOne(id);
-    if (user) {
-      res.status(HttpStatus.OK).json(user);
-    } else {
-      res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
-    }
+    res.status(HttpStatus.OK).json(user);
   }
 
   @Put(':id')
@@ -42,20 +36,12 @@ export class UsersController {
     @Res() res: Response,
   ): Promise<void> {
     const updatedUser = await this.usersService.update(id, updateUserDto);
-    if (updatedUser) {
-      res.status(HttpStatus.OK).json(updatedUser);
-    } else {
-      res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
-    }
+    res.status(HttpStatus.OK).json(updatedUser);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
     const deletedUser = await this.usersService.delete(id);
-    if (deletedUser) {
-      res.status(HttpStatus.NO_CONTENT).send(); // 204 No Content for successful deletion
-    } else {
-      res.status(HttpStatus.NOT_FOUND).json({ message: 'User not found' });
-    }
+    res.status(HttpStatus.NO_CONTENT).send();
   }
 }
