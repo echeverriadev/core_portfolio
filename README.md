@@ -28,7 +28,8 @@
 
 Copy enviroments examples in your locals env
 ```
-$ cp .env .env.example
+$touch .env
+$ cp .env.example .env
 ```
 
 ## To run with Docker
@@ -84,7 +85,5 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 [] Falta agregar los guards en los endpoints para ver los permisos y el token de inicio de sesion
 
 [] Login con google y apple
-
-[] DTOS para roles y permisos
 
 [] Pruebas unitarias

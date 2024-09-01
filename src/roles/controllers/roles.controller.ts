@@ -1,36 +1,42 @@
-import { Body, Controller, Post, Get, Put, Delete, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Put, Delete, Param, Res, HttpStatus } from '@nestjs/common';
 import { Role } from '../schemas/role.schema';
 import { RolesService } from '../services/roles.service';
 import { UUID } from 'crypto';
 import { CreateRoleDto } from '../dtos/requests/createRoleDto';
 import { UpdateRoleDto } from '../dtos/requests/updateRoleDto';
+import { Response } from 'express';
 
 @Controller('roles')
 export class RolesController {
-    constructor(private readonly rolesService: RolesService) {}
+    constructor(private readonly rolesService: RolesService) { }
 
     @Post()
-    create(@Body() createRoleDto: CreateRoleDto): Promise<Role> {
-        return this.rolesService.create(createRoleDto);
+    async create(@Body() createRoleDto: CreateRoleDto, @Res() res: Response): Promise<void> {
+        const role = await this.rolesService.create(createRoleDto);
+        res.status(HttpStatus.CREATED).json(role);
     }
 
     @Get()
-    findAll(): Promise<Role[]> {
-        return this.rolesService.findAll();
+    async findAll(@Res() res: Response): Promise<void> {
+        const roles = await this.rolesService.findAll();
+        res.status(HttpStatus.OK).json(roles);
     }
 
     @Get(':id')
-    findOne(@Param('id') id: UUID): Promise<Role> {
-        return this.rolesService.findOne(id);
+    async findOne(@Param('id') id: string, @Res() res: Response): Promise<void> {
+        const role = await this.rolesService.findOne(id);
+        res.status(HttpStatus.OK).json(role);
     }
 
     @Put(':id')
-    update(@Param('id') id: UUID, @Body() updateRoleDto: UpdateRoleDto): Promise<Role> {
-        return this.rolesService.update(id, updateRoleDto);
+    async update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto, @Res() res: Response): Promise<void> {
+        const updatedRole = await this.rolesService.update(id, updateRoleDto);
+        res.status(HttpStatus.OK).json(updatedRole);
     }
 
     @Delete(':id')
-    delete(@Param('id') id: UUID): Promise<Role> {
-        return this.rolesService.delete(id);
+    async delete(@Param('id') id: string, @Res() res: Response): Promise<void> {
+        const deletedRole = await this.rolesService.delete(id);
+        res.status(HttpStatus.NO_CONTENT).send();
     }
 }
