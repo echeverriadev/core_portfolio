@@ -50,7 +50,8 @@ start a terminal and execute yarn run seeds inside of it
 ```
 $ docker compose exec app sh
 $ # yarn run seeds
-$ # exit && yarn install
+$ # exit
+$ yarn install
 ```
 ## Resources
 
@@ -86,4 +87,3 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 [] Login con google y apple
 
-[] Pruebas unitarias

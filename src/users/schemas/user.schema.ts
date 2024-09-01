@@ -20,7 +20,7 @@ export class User extends Document {
   phone: string;
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'Role' }], required: true })
-  roles: Role[];
+  roles: string[];
 
   @Prop({ default: Date.now })
   createdAt: Date;
