@@ -17,14 +17,10 @@ describe('PermissionsService', () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     save: jest.fn().mockResolvedValue(this),
-  };
+  } as unknown as Permission;
 
   const mockModel = {
-    create: jest.fn().mockResolvedValue(mockPermission),
-    find: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([mockPermission]) }),
-    findById: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(mockPermission) }),
     findByIdAndUpdate: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(mockPermission) }),
-    findByIdAndDelete: jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(mockPermission) }),
   };
 
   beforeEach(async () => {
